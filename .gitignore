@@ -1,5 +1,6 @@
 # Project stuff
-PipFile.lock
+Pipfile.lock
+mutpy_report
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
