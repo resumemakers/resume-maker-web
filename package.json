@@ -1,0 +1,15 @@
+{
+  "name": "resume-maker-web",
+  "version": "1.0.0",
+  "license": "MIT",
+
+  "scripts": {
+    "dev": "parcel static/src/template/index.pug",
+    "build": "parcel build static/src/template/index.pug --detailed-report --out-dir static/dist --cache-dir static/.cache --no-source-maps --experimental-scope-hoisting"
+  },
+
+  "devDependencies": {
+    "autoprefixer": "^9.4.5",
+    "parcel-bundler": "^1.11.0"
+  }
+}
