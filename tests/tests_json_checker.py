@@ -1,34 +1,50 @@
 from unittest import TestCase
-from modules.json_checker import check_json_keys, KEYS
+from resumemaker.modules.json_checker import check_json_keys
 
 
 class TestCheckJsonKeys(TestCase):
+    def setUp(self):
+        self.keys = [
+            "name",
+            "function",
+            "phone",
+            "email",
+            "address",
+            "portfolio",
+            "education",
+            "experience",
+            "skills",
+            "languages",
+        ]
+
     def test_check_json_keys_should_return_tuples_with_bool_and_list(self):
-        boolean, missing_keys = check_json_keys({'abc': 123})
+        boolean, missing_keys = check_json_keys({'abc': 123}, keys=self.keys)
 
         self.assertIsInstance(boolean, bool)
         self.assertIsInstance(missing_keys, list)
 
     def test_check_json_keys_should_return_false_when_key_missing(self):
-        boolean, missing_keys = check_json_keys({'abc': 123})
+        boolean, missing_keys = check_json_keys({'abc': 123}, keys=self.keys)
 
         self.assertEqual(boolean, False)
 
     def test_check_json_keys_should_return_missing_keys(self):
-        boolean, missing_keys = check_json_keys({'abc': 123})
+        boolean, missing_keys = check_json_keys({'abc': 123}, keys=self.keys)
 
-        self.assertEqual(KEYS, missing_keys)
+        self.assertEqual(self.keys, missing_keys)
 
     def test_check_json_keys_should_return_only_name_key_name(self):
-        json = {key: 1 for key in KEYS}
+        json = {key: 1 for key in self.keys}
         json.pop('name')
 
         boolean, missing_keys = check_json_keys(json)
 
         self.assertIn('name', missing_keys)
 
-    def test_check_json_keys_should_return_true_and_empty_list_when_recive_all_keys(self):
-        json = {key: 1 for key in KEYS}
+    def test_check_json_keys_should_return_true_and_empty_list_when_recive_all_keys(
+        self
+    ):
+        json = {key: 1 for key in self.keys}
 
         boolean, missing_keys = check_json_keys(json)
 
