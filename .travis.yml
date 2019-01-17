@@ -5,7 +5,9 @@ branches:
     - /.*/
 matrix:
   include:
-      - python: 3.7
+    - python: 3.7
+      dist: xenial
+      sudo: true
 
 install:
   - pip install tox
