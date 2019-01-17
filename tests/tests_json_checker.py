@@ -1,5 +1,5 @@
 from unittest import TestCase
-from resumemaker.modules.json_checker import check_json_keys
+from resumemaker.modules.json_checker import check_json_keys, check_json_types
 
 
 class TestCheckJsonKeys(TestCase):
@@ -41,12 +41,64 @@ class TestCheckJsonKeys(TestCase):
 
         self.assertIn('name', missing_keys)
 
-    def test_check_json_keys_should_return_true_and_empty_list_when_recive_all_keys(
-        self
-    ):
+    def test_check_json_keys_should_return_true_and_empty_list_when_recive_all_keys(self):  # NOQA
         json = {key: 1 for key in self.keys}
 
         boolean, missing_keys = check_json_keys(json)
 
         self.assertEqual(True, boolean)
         self.assertEqual([], missing_keys)
+
+
+class TestCheckJsonTypes(TestCase):
+    def setUp(self):
+        self.keys = {
+            "name": str,
+            "function": str,
+            "phone": str,
+            "email": str,
+            "address": str,
+            "portfolio": str,
+            "education": dict,
+            "experience": dict,
+            "skills": dict,
+            "languages": dict,
+        }
+
+    def test_check_json_types_should_return_wrong_keys_with_wrong_types(self):
+        json = {
+            "name": '',
+            "function": '',
+            "phone": '',
+            "email": '',
+            "address": '',
+            "portfolio": '',
+            "education": '',
+            "experience": '',
+            "skills": '',
+            "languages": '',
+        }
+        status, keys = check_json_types(json, keys=self.keys)
+
+        self.assertFalse(status)
+        self.assertEqual(
+            ['education', 'experience', 'skills', 'languages'], keys
+        )
+
+    def test_check_json_types_should_return_true_and_blank_lines_when_iput_correct_json(self):  # NOQA
+        json = {
+            "name": '',
+            "function": '',
+            "phone": '',
+            "email": '',
+            "address": '',
+            "portfolio": '',
+            "education": {},
+            "experience": {},
+            "skills": {},
+            "languages": {},
+        }
+        status, keys = check_json_types(json, keys=self.keys)
+
+        self.assertTrue(status)
+        self.assertEqual([], keys)
