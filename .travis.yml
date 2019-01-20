@@ -9,8 +9,8 @@ branches:
 
 install:
   - pip install tox
-  - yarn
+  - nvm install
 
 script:
   - tox
-  - yarn test
+  - npm test
