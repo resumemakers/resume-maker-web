@@ -9,6 +9,9 @@ branches:
 
 install:
   - pip install tox
+  - nvm install 10
+  - npm install
 
 script:
   - tox
+  - npm test
