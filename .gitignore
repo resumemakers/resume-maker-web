@@ -17,10 +17,3 @@ htmlcov/
 .tox/
 .coverage
 .coverage.*
-.cache
-
-# Node
-node_modules
-
-# Parcel
-static/.cache/*
